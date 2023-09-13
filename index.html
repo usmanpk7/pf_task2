@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./index.css">
+    <title>Login</title>
+</head>
+<body>
+    <div class="main__container">
+        <form class="form__container" id="signInForm">
+          <div class="form__input">
+            <h2>Welcome back!</h2>
+            <p>Please Login First To Access The Page</p>
+          </div>
+          <div class="form__input">
+            <input type="email" name="email" placeholder="Email address *" id="email">
+            <div class="error-message" id="email-error">Please enter your email.</div>
+          </div>
+          <div class="form__input">
+            <input type="password" name="password" placeholder="Password *" id="password">
+            <div class="error-message" id="password-error">Please enter your password.</div>
+            <span class="fa fa-eye" id="password-toggle"></span>
+          </div>
+          <div class="form__input">
+            <input type="submit" name="submit" value="Login">
+            <p>Don't have an account? <a href="SignUp.html">Sign up</a></p>
+          </div>
+        </form>
+    </div>     
+</body>
+
+
+
+<script>
+
+const passwordField = document.getElementById('password');
+const passwordToggle = document.getElementById('password-toggle');
+
+passwordToggle.addEventListener('click', () => {
+  if (passwordField.getAttribute('type') === 'password') {
+    passwordField.setAttribute('type', 'text');
+    passwordToggle.classList.remove('fa-eye');
+    passwordToggle.classList.add('fa-eye-slash');
+  } else {
+    passwordField.setAttribute('type', 'password');
+    passwordToggle.classList.remove('fa-eye-slash');
+    passwordToggle.classList.add('fa-eye');
+  }
+})
+
+//Get Data of Form
+document.getElementById("signInForm").addEventListener('submit', function(e){
+
+e.preventDefault();
+
+let email=document.getElementById('email').value;
+let password=document.getElementById('password').value
+
+const signInData={
+    email:email,
+    password:password
+}
+const emailError = document.getElementById('email-error');
+  const passwordError = document.getElementById('password-error');
+  emailError.style.display = 'none';
+  passwordError.style.display = 'none';
+
+  if (email.trim() === '') {
+    emailError.style.display = 'block';
+  }else{
+    emailError.style.display="none"
+  }
+  if (password.trim() === '') {
+    passwordError.style.display = 'block';
+  }else{
+    passwordError.style.display='none'
+  }
+           
+    localStorage.setItem('signInData', JSON.stringify(signInData));
+    document.getElementById("signInForm").reset();
+
+// console.log(signInData)
+})
+
+
+</script>
+</body>
+</html>
